@@ -1,0 +1,17 @@
+.mainbox {
+    width: 100%;
+    background: darkblue;
+    color: white;
+}
+.elementbox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+}
+
+.element {
+    margin: 10px;
+    color: white;
+    text-decoration: none;
+}
