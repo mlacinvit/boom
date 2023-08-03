@@ -11,4 +11,7 @@ export const {
   deleteUserRequest,
   deleteUserSuccess,
   deleteUserFailure,
+  editRequest,
+  editSuccess,
+  editFailure,
 } = usersSlice.actions

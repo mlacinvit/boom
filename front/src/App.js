@@ -7,9 +7,11 @@ import Main from './containers/Main';
 import Register from './containers/Register';
 import Login from './containers/Login';
 import Product from './containers/Product';
+import MyProfile from './containers/MyProfile';
 import { ProtectedRoute } from './utils/utils';
 import CookieProvider from './components/CookieProvider';
 import Layout from './components/UI/layout';
+import './App.css';
 
 const App = () => {
   const user = useSelector(state => state.users.user);
@@ -20,19 +22,24 @@ const App = () => {
   return (
     <CookieProvider>
       <Layout>
-        <Switch>
-          <Route path="/register" component={Register} />
-          <Route path="/login" component={Login} />
-          <Route path="/product/:id" component={Product} />
-          <Route path="/" component={Main} />
-          {/* <ProtectedRoute
-            isAllowed={Cookies.get('jwt') || user?.token}
-            redirectTo="/login"
-            path="/user"
-            component={MyProfile}
-          /> */}
+        <div className='back'>
+          <div className='container'>
+            <Switch>
+              <Route path="/register" component={Register} />
+              <Route path="/login" component={Login} />
+              <ProtectedRoute
+                isAllowed={Cookies.get('jwt') || user?.token}
+                redirectTo="/login"
+                path="/profile"
+                component={MyProfile}
+              />
+              <Route path="/product/:id" component={Product} />
+              <Route path="/" component={Main} />
 
-        </Switch>
+
+            </Switch>
+          </div>
+        </div>
       </Layout>
     </CookieProvider>
   )

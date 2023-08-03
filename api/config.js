@@ -1,19 +1,16 @@
-const path = require('path')
+const path = require('path');
 
-const rootPath = __dirname
+const rootPath = __dirname;
 
 module.exports = {
   rootPath,
   uploadPath: path.join(rootPath, 'public/uploads'),
   mongo: {
-    db: 'mongodb://localhost/shopboom',
+    db: 'mongodb://127.0.0.1/shopboom',
     options: {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     },
   },
-  facebook: {
-    appId: process.env.FACEBOOK_APP_ID,
-    appSecret: process.env.FACEBOOK_APP_SECRET,
-  },
-}
+
+};

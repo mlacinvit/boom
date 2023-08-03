@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
-const { nanoid } = require('nanoid');
 const config = require('./config');
-
 const User = require('./models/User');
 const Category = require('./models/Category');
 const Product = require('./models/Product');
@@ -21,19 +19,21 @@ const run = async () => {
       username: 'Admin',
       email: 'admin@gmail.com',
       password: 'admin',
-      token: nanoid(),
+      phone: '+996555555',
+      token: '000000000000',
       role: 'admin',
-      avatar: '',
+      avatar: './fixtures/admin.png',
     },
     {
       username: 'User',
       email: 'user@gmail.com',
       password: 'user',
-      token: nanoid(),
+      phone: '+996555555',
+      token: 'lllllllllllll',
       role: 'user',
-      avatar: '',
+      avatar: './fixtures/user.png',
     },
-  )
+  );
 
 
   const [furniture, tehnologes, accessuars] = await Category.create(
@@ -56,7 +56,7 @@ const run = async () => {
       description:
         'Красивая лампа.',
       price: 5500,
-      image: ''
+      image: './fixtures/lamp.jpeg'
     },
     {
       title: 'Гаджет',
@@ -65,7 +65,7 @@ const run = async () => {
       description:
         'Удивительный гаджет.',
       price: 3000,
-      image: ''
+      image: './fixtures/gadget.jpg'
     },
     {
       title: 'Пуговки',
@@ -74,11 +74,11 @@ const run = async () => {
       description:
         'Сверкающие пуговицы.',
       price: 500,
-      image: ''
+      image: './fixtures/pug.jpg'
     },
-  )
+  );
 
-  await mongoose.connection.close()
-}
+  await mongoose.connection.close();
+};
 
-run().catch(console.error)
+run().catch(console.error);

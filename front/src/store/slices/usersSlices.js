@@ -10,6 +10,8 @@ export const initialState = {
   loginError: null,
   deleteLoading: false,
   deleteError: null,
+  editLoading: false,
+  editError: null
 }
 
 const usersSlice = createSlice({
@@ -40,8 +42,20 @@ const usersSlice = createSlice({
       state.loginLoading = false
       state.loginError = action.payload
     },
-    logoutUser(state) {
-      state.user = null
+    logoutUser(state, action) {
+      
+    },
+    editRequest(state) {
+      state.editLoading = true
+      state.editError = null
+    },
+    editSuccess(state, action) {
+      state.editLoading = false
+      state.user = action.payload
+    },
+    editFailure(state, action) {
+      state.editLoading = false
+      state.editError = action.payload
     },
     deleteUserRequest(state) {
       state.deleteLoading = true

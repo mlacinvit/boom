@@ -1,0 +1,34 @@
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form_title {
+    font-size: 25px;
+    font-weight: bold;
+    color: darkblue;
+}
+
+.forminput {
+    margin: 10px;
+    border-radius: 30px;
+    padding: 10px;
+}
+
+.forminputerror {
+    margin: 10px;
+    border-radius: 30px;
+    padding: 10px;
+    border: 2px solid brown;
+}
+
+.helper {
+    color: brown;
+}
+
+.formbutton {
+    color: white;
+    background: darkblue;
+    padding: 20px;
+    border-radius: 20px;
+}

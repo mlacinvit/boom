@@ -19,10 +19,6 @@ const validateEmail = value => {
 }
 
 const UserSchema = new Schema({
-  username: {
-    type: String,
-    required: { message: 'Введите имя' },
-  },
   email: {
     type: String,
     required: { message: 'Введите email' },
@@ -36,6 +32,14 @@ const UserSchema = new Schema({
     type: String,
     required: { message: 'Введите пароль' },
   },
+  username: {
+    type: String,
+    required: { message: 'Введите имя' },
+  },
+  phone: {
+    type: String || Number,
+  },
+  
   role: {
     type: String,
     required: true,

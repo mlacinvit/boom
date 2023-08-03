@@ -1,0 +1,26 @@
+
+
+.imgInput {
+    display: none;
+}
+
+.nameInput {
+    background: none;
+    border: none;
+    font-size: 30px;
+    margin: 7px;
+}
+
+.labelInput {
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.editbtn {
+    background: greenyellow;
+    padding: 15px;
+    margin: 30px 0 20px 0;
+    font-size: 20px;
+    border-radius: 20px;
+    border: none;
+}

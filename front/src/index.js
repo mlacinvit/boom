@@ -7,13 +7,13 @@ import store from './store/configureStore';
 import history from './history';
 import './index.css';
 
-const app = (
-  <Provider store={store}>
-    <Router history={history}>
-      <App />
-    </Router>
-  </Provider>
-)
 
+let app = (
+    <Provider store={store}>
+        <Router history={history}>
+            <App/>
+        </Router>
+    </Provider>
+);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(app);

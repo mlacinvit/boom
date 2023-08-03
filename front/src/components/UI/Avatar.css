@@ -1,0 +1,19 @@
+.avatar {
+  border-radius: 50%;
+  vertical-align: middle;
+  object-fit: cover;
+  cursor: pointer;
+  -webkit-box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.43);
+  -moz-box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.43);
+  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.43);
+}
+
+.wh1{
+  width: 50%;
+  height: 50%;
+}
+
+.wh2{
+  width: 50px;
+  height: 50x;
+}

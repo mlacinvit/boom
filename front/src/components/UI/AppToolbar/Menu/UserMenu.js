@@ -1,23 +1,37 @@
 import * as React from "react";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {useDispatch} from "react-redux";
-import {logoutRequest} from "../../../../store/actions/usersActions";
+import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
+import {logoutUser} from '../../../../store/actions/usersActions';
+import Avatar from "../../Avatar";
+import '../AppToolbar.css';
 
 const UserMenu = ({user}) => {
   const dispatch = useDispatch();
+  const [show, setShow] = useState(false);
+
+useEffect(() => {
+  setTimeout(() => {
+    setShow(false);
+  },5000)
+});
 
   return (
     <div>
-      <button>
         {
           user.avatar &&
-            <img
-              alt={user.userName}
-              src={user.avatar}
-              width="50"
-            />
+            <Avatar user={user} click={() => setShow(!show)} wh="wh2" />
         }
-      </button>
+        {show 
+          ? 
+            <div className="profile">
+              <div className="menu">
+                <NavLink className="links" to="/profile">Edit profile</NavLink>
+                <NavLink className="links" onClick={() => dispatch(logoutUser())} to="/login">Logout</NavLink>
+              </div>
+            </div> 
+          : null
+        }
     </div>
   );
 };

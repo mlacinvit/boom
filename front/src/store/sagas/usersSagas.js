@@ -1,7 +1,7 @@
-import { put, takeEvery } from 'redux-saga/effects'
-import Cookies from 'js-cookie'
-import { historyPush } from '../actions/historyActions'
-import axiosApi from '../../axiosApi'
+import { put, takeEvery } from 'redux-saga/effects';
+import Cookies from 'js-cookie';
+import { historyPush } from '../actions/historyActions';
+import axiosApi from '../../axiosApi';
 import {
   deleteUserFailure,
   deleteUserRequest,
@@ -13,6 +13,9 @@ import {
   registrationRequest,
   registrationSuccess,
   logoutUser,
+  editRequest,
+  editSuccess,
+  editFailure,
 } from '../actions/usersActions';
 
 
@@ -20,6 +23,7 @@ export function* registrationUserSaga({ payload: userData }) {
   try {
     const response = yield axiosApi.post('/users', userData);
     yield put(registrationSuccess(response.data));
+    yield put(historyPush('/'));
 
   } catch (e) {
     if (e.response && e.response.data) {
@@ -36,7 +40,7 @@ export function* loginUserSaga({ payload }) {
     }
     if (payload) {
       Cookies.remove('jwt');
-      response = yield axiosApi.post(`/users/sessions?path=${payload.path}`, payload.userData);
+      response = yield axiosApi.post(`/users/sessions`, payload.userData);
     }
     yield put(loginUserSuccess(response.data));
 
@@ -61,6 +65,16 @@ export function* logoutUserSaga() {
   }
 }
 
+export function* editUserProfileSaga({ payload: userData }) {
+  try {
+    const response = yield axiosApi.put('/users/edit', userData);
+    yield put(editSuccess(response.data));
+
+  } catch (e) {
+    yield put(editFailure(e));
+  }
+}
+
 export function* deleteUserSaga({ payload: id }) {
   try {
     yield axiosApi.delete(`users/${id}`);
@@ -72,10 +86,10 @@ export function* deleteUserSaga({ payload: id }) {
 
 const userSagas = [
   takeEvery(loginUserRequest, loginUserSaga),
-  takeEvery(deleteUserRequest, deleteUserSaga),
   takeEvery(registrationRequest, registrationUserSaga),
   takeEvery(logoutUser, logoutUserSaga),
+  takeEvery(editRequest, editUserProfileSaga),
+  takeEvery(deleteUserRequest, deleteUserSaga),
+];
 
-]
-
-export default userSagas
+export default userSagas;
