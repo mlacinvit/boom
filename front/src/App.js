@@ -11,6 +11,7 @@ import MyProfile from './containers/MyProfile';
 import { ProtectedRoute } from './utils/utils';
 import CookieProvider from './components/CookieProvider';
 import Layout from './components/UI/layout';
+import NewProduct from './containers/NewProduct';
 import './App.css';
 
 const App = () => {
@@ -32,6 +33,12 @@ const App = () => {
                 redirectTo="/login"
                 path="/profile"
                 component={MyProfile}
+              />
+              <ProtectedRoute
+                isAllowed={Cookies.get('jwt') || user?.token}
+                redirectTo="/login"
+                path="/newproduct"
+                component={NewProduct}
               />
               <Route path="/product/:id" component={Product} />
               <Route path="/" component={Main} />

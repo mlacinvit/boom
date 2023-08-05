@@ -1,10 +1,10 @@
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
-const utils = require('../middleweare/token');
-const auth = require('../middleweare/auth');
-const permit = require('../middleweare/permit');
-const upload = require('../middleweare/upload');
+const utils = require('../middleware/token');
+const auth = require('../middleware/auth');
+const permit = require('../middleware/permit');
+const upload = require('../middleware/upload');
 const User = require('../models/User');
 const config = require('../config');
 

@@ -13,7 +13,7 @@ const Register = () => {
       username: '', 
       phone: ''
     });
-console.log(user);
+
     return (
         <>
             <FormComponent

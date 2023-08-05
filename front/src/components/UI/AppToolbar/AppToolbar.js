@@ -19,9 +19,9 @@ const AppToolbar = () => {
             </NavLink>
           </div>
           <div className='birka'>
-            <p className='psevdo left'></p>
-            <h1 className='logotext'>Boom shop</h1>
-            <p className='psevdo right'></p>
+            <span className='psevdo left'></span>
+            <h1 className='logotext'>boom shop</h1>
+            <span className='psevdo right'></span>
           </div>
           <div>
             {user ? <UserMenu user={user} /> : <Anonymous />}

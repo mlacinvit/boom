@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Card from '../components/UI/Cards/Card';
 import Avatar from '../components/UI/Avatar';
 import { inputChangeHandler, fileChangeHandler } from '../components/UI/FormComponents/Handlers/Handlers';
-import {editRequest, loginUserRequest} from '../store/actions/usersActions';
+import { editRequest } from '../store/actions/usersActions';
 import './MyProfile.css';
 
 
@@ -12,23 +12,17 @@ const MyProfile = () => {
     const dispatch = useDispatch();
     const inputRef = useRef();
     const [edit, setEdit] = useState({username: '', email: '', phone: '', avatar: ''});
-    const [preview, setPreview] = useState(null);
  
     useEffect(() => {
-        dispatch(loginUserRequest());
-      }, [dispatch]);
-
-
-      useEffect(() => {
-        const newState = {};
-        if (user) {
-          newState.username = user.username ? user.username : '';
-          newState.email = user.email ? user.email : '';
-          newState.avatar = user.avatar ? user.avatar : '';
-          newState.phone = user.phone ? user.phone : '';
-          setEdit(newState);
-        }
-      }, [user]);
+    const newState = {};
+    if (user) {
+        newState.username = user.username ? user.username : '';
+        newState.email = user.email ? user.email : '';
+        newState.avatar = user.avatar ? user.avatar : '';
+        newState.phone = user.phone ? user.phone : '';
+        setEdit(newState);
+    }
+    }, [user]);
 
     const activateInput = () => {
         inputRef.current.click();
