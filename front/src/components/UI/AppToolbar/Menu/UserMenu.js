@@ -28,6 +28,7 @@ useEffect(() => {
               <div className="menu">
                 <NavLink className="links" to="/profile">Edit profile</NavLink>
                 <NavLink className="links" to="/newproduct">New product</NavLink>
+                <NavLink className="links" to="/myproduct">My product</NavLink>
                 <NavLink className="links" onClick={() => dispatch(logoutUser())} to="/login">Logout</NavLink>
                 <span className="span"></span>
               </div>

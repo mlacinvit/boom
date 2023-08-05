@@ -56,7 +56,8 @@ const run = async () => {
       description:
         'Красивая лампа.',
       price: 5500,
-      image: './fixtures/lamp.jpeg'
+      image: './fixtures/lamp.jpeg',
+      publish: true
     },
     {
       title: 'Гаджет',
@@ -65,7 +66,8 @@ const run = async () => {
       description:
         'Удивительный гаджет.',
       price: 3000,
-      image: './fixtures/gadget.jpg'
+      image: './fixtures/gadget.jpg',
+      publish: true
     },
     {
       title: 'Пуговки',
@@ -74,7 +76,8 @@ const run = async () => {
       description:
         'Сверкающие пуговицы.',
       price: 500,
-      image: './fixtures/pug.jpg'
+      image: './fixtures/pug.jpg',
+      publish: true
     },
   );
 

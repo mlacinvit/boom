@@ -5,13 +5,14 @@ import { createProductRequest } from '../store/actions/productsActions';
 import { fetchCategoriesRequest } from '../store/actions/categoriesActions';
 import ProductCard from '../components/UI/Cards/ProductCard';
 import defaultPhoto from '../assets/no-image.png';
+import './Product.css';
 
 const NewProduct = () => {
   const user = useSelector(state => state.users.user);
   const category = useSelector(state => state.categories.categories);
   const dispatch = useDispatch();
   const inputRef = useRef();
-console.log(category);
+
   const [product, setProduct] = useState({
     title: '',
     description: '',
@@ -69,7 +70,7 @@ console.log(category);
           cols={10}
           rows={3}
       />
-      
+
       <select 
           name="category" 
           onChange={e => inputChangeHandler(e, setProduct)} 
@@ -95,7 +96,7 @@ console.log(category);
         type="submit" 
         onClick={onSubmitFormData} 
         className='editbtn' 
-        disabled={!product.title}
+        disabled={!product.title || !product.category}
       >Добавить товар
       </button>
 

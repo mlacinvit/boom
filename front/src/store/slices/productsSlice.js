@@ -40,6 +40,18 @@ const usersSlice = createSlice({
       state.getProductLoading = false
       state.getProductError = action.payload
     },
+    fetchMyProductRequest(state) {
+      state.getProductLoading = true
+      state.getProductError = null
+    },
+    fetchMyProductSuccess(state, action) {
+      state.getProductLoading = false
+      state.products = action.payload
+    },
+    fetchMyProductFailure(state, action) {
+      state.getProductLoading = false
+      state.getProductError = action.payload
+    },
     createProductRequest(state) {
       state.getProductLoading = true
       state.getProductError = null

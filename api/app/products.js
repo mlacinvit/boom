@@ -1,13 +1,9 @@
 const express = require('express');
-const multer = require('multer');
-const path = require('path');
-
-const config = require('../config');
+const router = express.Router();
 const Product = require("../models/Product");
 const auth = require("../middleware/auth");
 const permit = require("../middleware/permit");
 const upload = require('../middleware/upload');
-const router = express.Router();
 
 router.get('/', async (req, res) => {
   const sort = {};
@@ -37,6 +33,17 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/myproducts', auth, async (req, res) => {
+    const user = req.user;
+    try {
+        const products = await Product.find({user: user._id}).populate('category user');
+        res.send(products);
+    
+    } catch {
+      res.sendStatus(500);
+    }
+  });
+
 router.get('/:id', async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -51,16 +58,20 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+
+
 router.post('/', auth, permit('user'), upload.single('image'), async (req, res) => {
+    const user = req.user; 
   try {
     const {title, price, category, description} = req.body;
-
     const productData = {
       title,
       price,
       category,
       description: description || null,
       image: null,
+      publish: false,
+      user: user._id
     };
 
     if (req.file) {

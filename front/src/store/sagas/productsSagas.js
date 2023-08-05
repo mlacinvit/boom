@@ -1,4 +1,5 @@
 import { put, takeEvery } from 'redux-saga/effects';
+import { historyPush } from '../actions/historyActions';
 import axiosApi from '../../axiosApi';
 import {
     fetchProductsRequest,
@@ -9,6 +10,9 @@ import {
     fetchProductFailure,
     createProductRequest,
     createProductSuccess,
+    fetchMyProductRequest,
+    fetchMyProductSuccess,
+    fetchMyProductFailure,
     createProductFailure,
     updateProductRequest,
     updateProductSuccess,
@@ -38,11 +42,21 @@ export function* fetchProductSaga({ payload: id }) {
     }
 }
 
+export function* fetchMyProductSaga() {
+    try {
+        const response = yield axiosApi(`/products/myproducts`);
+        yield put(fetchMyProductSuccess(response.data))
+    } catch (e) {
+        yield put(fetchMyProductFailure(e));
+    }
+}
+
 export function* createProductSaga({ payload: data }) {
     try {
         yield axiosApi.post('/products', data);
         yield put(createProductSuccess());
         yield put(fetchProductsRequest());
+        yield put(historyPush('/myproduct'));
     } catch (e) {
         yield put(createProductFailure(e));
     }
@@ -72,6 +86,7 @@ export function* deleteProductSaga({ payload: id }) {
 const productsSagas = [
     takeEvery(fetchProductsRequest, fetchProductsSaga),
     takeEvery(fetchProductRequest, fetchProductSaga),
+    takeEvery(fetchMyProductRequest, fetchMyProductSaga),
     takeEvery(createProductRequest, createProductSaga),
     takeEvery(updateProductRequest, updateProductSaga),
     takeEvery(deleteProductRequest, deleteProductSaga),

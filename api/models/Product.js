@@ -23,7 +23,11 @@ const ProductSchema = new Schema({
   },
   image: {
     type: String
-  }
+  },
+  publish: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const Product = mongoose.model('Product', ProductSchema)
