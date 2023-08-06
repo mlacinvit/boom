@@ -33,6 +33,7 @@
     padding: 10px;
     border-radius: 10px;
     background: whitesmoke;
+    z-index: 10;
 }
 .span {
     position: absolute;

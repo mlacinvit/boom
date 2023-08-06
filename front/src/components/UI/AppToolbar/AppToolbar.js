@@ -8,6 +8,7 @@ import './AppToolbar.css';
 
 const AppToolbar = () => {
   const user = useSelector(state => state.users.user);
+
   return (
     <>
       <div className='mainbox'>
@@ -24,7 +25,7 @@ const AppToolbar = () => {
             <span className='psevdo right'></span>
           </div>
           <div>
-            {user ? <UserMenu user={user} /> : <Anonymous />}
+            {user !== null ? <UserMenu user={user} /> : <Anonymous />}
           </div>
         </div>
       </div>

@@ -7,6 +7,7 @@ import { fetchCategoriesRequest } from '../store/actions/categoriesActions';
 import ProductCard from '../components/UI/Cards/ProductCard';
 import defaultPhoto from '../assets/no-image.png';
 import './Product.css';
+import { historyPush } from '../store/actions/historyActions';
 
 const EditProduct = () => {
   const category = useSelector(state => state.categories.categories);
@@ -23,7 +24,8 @@ const EditProduct = () => {
     description: '',
     image: null,
     price: '',
-    category: ''
+    category: '',
+    publish: ''
   });
   
   useEffect(() => {
@@ -40,7 +42,8 @@ const EditProduct = () => {
           description: proproduct.description,
           image: proproduct.image,
           price: proproduct.price,
-          category: proproduct.category._id
+          category: proproduct.category._id,
+          publish: proproduct.publish
         });
         setCategoryNow(proproduct.category.title)
         setImageConvert(imageСonverterHandler(proproduct));
@@ -50,6 +53,11 @@ const EditProduct = () => {
 
   const activateInput = () => {
     inputRef.current.click();
+  };
+
+  const changePublish = bul => {
+    setPublish(bul);
+    setProduct(prev => ({...prev, publish: bul}));
   };
 
   const onSubmitFormData = () => {
@@ -63,6 +71,7 @@ const EditProduct = () => {
     data.append('publish', publish);
 
     dispatch(updateProductRequest({data, id}));
+    dispatch(historyPush('/myproduct'))
     
     };  
 
@@ -128,9 +137,9 @@ const EditProduct = () => {
       />
 
         <>           
-          {!product.publish && !publish
-              ? <button className='publish no' onClick={() => setPublish(true)}>ОПУБЛИКОВАТЬ</button> 
-              : <button className='publish yes' onClick={() => setPublish(false)}>СНЯТЬ С ПУБЛИКАЦИИ</button>
+          {!product.publish
+              ? <button className='publish no' onClick={() => changePublish(true)}>ОПУБЛИКОВАТЬ</button> 
+              : <button className='publish yes' onClick={() => changePublish(false)}>СНЯТЬ С ПУБЛИКАЦИИ</button>
           }
         </>
 
@@ -139,6 +148,7 @@ const EditProduct = () => {
         onClick={onSubmitFormData} 
         className='editbtn' 
         disabled={!product.title || !product.category}
+        style={{cursor: 'pointer'}}
       >Изменить товар
       </button>
 

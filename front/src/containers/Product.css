@@ -1,3 +1,4 @@
+
 .productBlock {
     width: 100%;
     display: flex;
@@ -11,6 +12,7 @@
     background: greenyellow;
     padding: 10px;
     border-radius: 10px;
+    font-size: 25px;
 }
 
 .btnEdit:hover {

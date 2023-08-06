@@ -46,7 +46,7 @@ router.get('/myproducts', auth, async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id).populate('category');
+    const product = await Product.findById(req.params.id).populate('category user');
 
     if (!product) {
       res.status(404).send({message: 'Product not found!'});
@@ -57,7 +57,6 @@ router.get('/:id', async (req, res) => {
     res.sendStatus(500);
   }
 });
-
 
 
 router.post('/', auth, permit('user', 'admin'), upload.single('image'), async (req, res) => {

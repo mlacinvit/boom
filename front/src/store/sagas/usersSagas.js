@@ -58,7 +58,7 @@ export function* loginUserSaga({ payload }) {
 export function* logoutUserSaga() {
   try {
     yield axiosApi.delete('users/sessions');
-    yield put(historyPush('/'));
+    yield put(historyPush('/login'));
     yield Cookies.remove('jwt');
   } catch (e) {
     console.log(e);

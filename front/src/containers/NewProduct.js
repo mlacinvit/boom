@@ -105,13 +105,6 @@ const NewProduct = () => {
           placeholder='price'
       />
 
-        <>           
-          {!product.publish 
-              ? <button className='publish no' onClick={() => setPublish(true)}>ОПУБЛИКОВАТЬ</button> 
-              : <button className='publish yes' onClick={() => setPublish(false)}>СНЯТЬ С ПУБЛИКАЦИИ</button>
-          }
-        </>
-
       <button 
         type="submit" 
         onClick={onSubmitFormData} 

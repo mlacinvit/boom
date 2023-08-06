@@ -10,6 +10,11 @@ const MyProduct = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+
+      dispatch(fetchMyProductRequest());
+    }, []);
+
+    useEffect(() => {
         dispatch(fetchMyProductRequest());
     }, [dispatch]);
 

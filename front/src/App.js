@@ -58,6 +58,7 @@ const App = () => {
                 component={MyProduct}
               />
               <Route path="/product/:id" component={Product} />
+              
               <Route path="/" component={Main} />
 
 
