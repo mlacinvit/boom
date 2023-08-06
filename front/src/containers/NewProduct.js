@@ -9,11 +9,9 @@ import './Product.css';
 
 const NewProduct = () => {
   const category = useSelector(state => state.categories.categories);
-  const proproduct = useSelector(state => state.products.product);
   const dispatch = useDispatch();
   const inputRef = useRef();
   const [imageConvert, setImageConvert] = useState(null);
-  const [publish, setPublish] = useState(false);
 
   const [product, setProduct] = useState({
     title: '',
