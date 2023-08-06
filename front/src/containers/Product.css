@@ -5,3 +5,14 @@
     flex-wrap: wrap;
     gap: 30px;
 }
+
+.btnEdit {
+    border: none;
+    background: greenyellow;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.btnEdit:hover {
+    background: rgb(125, 184, 36); 
+}

@@ -1,3 +1,5 @@
+import { apiUrl } from "../../../../config";
+
 export const inputChangeHandler = (e, setState) => {
   const { name, value } = e.target;
   return setState(prev => ({ ...prev, [name]: value }));
@@ -8,11 +10,15 @@ export const submitFormHandler = (e, fetch) => {
   return fetch;
 };
 
-export const fileChangeHandler = (e, setState) => {
+export const fileChangeHandler = (e, setState, preview) => {
   const name = e.target.name;
   const file = e.target.files[0];
 
   setState(prevState => ({...prevState, [name]: file}));
+
+  if (preview) {
+    preview(URL.createObjectURL(file));
+  }
 };
 
 export const submitFormDataHandler = (e, myState) => {
@@ -24,4 +30,18 @@ export const submitFormDataHandler = (e, myState) => {
   });
 
   return formData;
+};
+
+export const imageСonverterHandler = obj => {
+  let imageConvert;
+  if (obj?.image) {
+    if (obj?.image.match(/http/) || obj?.image.match(/https/)) {
+      imageConvert = obj?.image;
+    } else if (obj?.image.includes('fixtures')) {
+      imageConvert = `${apiUrl}/${obj?.image}`;
+    } else {
+      imageConvert = `${apiUrl}/${obj?.image}`;
+    }
+  }
+  return imageConvert; 
 };

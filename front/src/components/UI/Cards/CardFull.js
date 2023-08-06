@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { apiUrl } from '../../../config';
 import './Card.css';
+
 const CardFull = ({ product, size, click }) => {
     let avatarImage;
 
@@ -13,22 +14,28 @@ const CardFull = ({ product, size, click }) => {
         avatarImage = `${apiUrl}/${product.image}`;
       }
     } 
+
   return (
-    <div className={`cardFull ${size}`} onClick={click}>
-         <img 
-            className="image" 
-            src={avatarImage} 
-            alt={product?.title} 
-         />
-         <p>{product.category.title}</p>
-        <h1>{product.title}</h1>
-        {size === 'max' 
-        ? <p className='desc'>{product.description}</p>
-        : null
-    }
-        
-        <h2>{product.price}</h2>
-    </div>
+    <>
+     
+        <div className={`cardFull ${size}`} onClick={click}>
+            <img 
+                className="image" 
+                src={avatarImage} 
+                alt={product?.title} 
+            />
+            <p>{product.category.title}</p>
+            <h1>{product.title}</h1>
+            {size === 'max' 
+                ? <p className='desc'>{product.description}</p>
+                : null
+            }
+            
+            <h2>{product.price}</h2>
+
+        </div>
+       
+    </>
   )
 
 };

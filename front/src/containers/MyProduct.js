@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchMyProductRequest } from '../store/actions/productsActions';
+import { fetchMyProductRequest, fetchProductRequest } from '../store/actions/productsActions';
+import { historyPush } from '../store/actions/historyActions';
 import CardFull from '../components/UI/Cards/CardFull';
 import './Product.css';
 
@@ -12,10 +13,21 @@ const MyProduct = () => {
         dispatch(fetchMyProductRequest());
     }, [dispatch]);
 
+
+    const goToOneProduct = id => {
+        dispatch(fetchProductRequest(id));
+        dispatch(historyPush(`/product/${id}`));
+    };
+    
   return (
     <div className='productBlock'>
       {myProduct && myProduct.map(prod => (
-        <CardFull product={prod} key={prod._id} size={'min'}/>
+        <CardFull 
+            product={prod} 
+            key={prod._id} 
+            size={'min'} 
+            click={e => goToOneProduct(prod._id, e)} 
+        />
       ))}
     </div>
   )

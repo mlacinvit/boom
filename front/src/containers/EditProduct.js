@@ -1,20 +1,23 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createProductRequest } from '../store/actions/productsActions';
-import { inputChangeHandler, fileChangeHandler } from '../components/UI/FormComponents/Handlers/Handlers';
+import { useRouteMatch } from 'react-router-dom/cjs/react-router-dom.min';
+import { fetchProductRequest, updateProductRequest } from '../store/actions/productsActions';
+import { inputChangeHandler, fileChangeHandler, imageСonverterHandler } from '../components/UI/FormComponents/Handlers/Handlers';
 import { fetchCategoriesRequest } from '../store/actions/categoriesActions';
 import ProductCard from '../components/UI/Cards/ProductCard';
 import defaultPhoto from '../assets/no-image.png';
 import './Product.css';
 
-const NewProduct = () => {
+const EditProduct = () => {
   const category = useSelector(state => state.categories.categories);
   const proproduct = useSelector(state => state.products.product);
   const dispatch = useDispatch();
   const inputRef = useRef();
+  const match = useRouteMatch();
+  const id = match.params.id;
   const [imageConvert, setImageConvert] = useState(null);
   const [publish, setPublish] = useState(false);
-
+  const [categoryNow, setCategoryNow] = useState(null);
   const [product, setProduct] = useState({
     title: '',
     description: '',
@@ -28,21 +31,40 @@ const NewProduct = () => {
   }, [dispatch]);
 
 
+  useEffect(() => {
+    if (match.params.id) {
+      dispatch(fetchProductRequest(match.params.id));
+      if (proproduct !== null) {
+        setProduct({    
+          title: proproduct.title,
+          description: proproduct.description,
+          image: proproduct.image,
+          price: proproduct.price,
+          category: proproduct.category._id
+        });
+        setCategoryNow(proproduct.category.title)
+        setImageConvert(imageСonverterHandler(proproduct));
+      }
+    } 
+  }, [dispatch]);
+
   const activateInput = () => {
     inputRef.current.click();
   };
 
-  const onSubmitFormData = async() => {
-    const formData = new FormData;
-    formData.append('title', product.title);
-    formData.append('description', product.description);
-    formData.append('image', product.image);
-    formData.append('price', product.price);
-    formData.append('category', product.category);
-    formData.append('publish', publish);
+  const onSubmitFormData = () => {
+    const data = new FormData;
 
-    dispatch(createProductRequest(formData));
-};  
+    data.append('title', product.title);
+    data.append('description', product.description);
+    data.append('image', product.image);
+    data.append('price', product.price);
+    data.append('category', product.category);
+    data.append('publish', publish);
+
+    dispatch(updateProductRequest({data, id}));
+    
+    };  
 
   return (
     <>
@@ -89,7 +111,7 @@ const NewProduct = () => {
           onChange={e => inputChangeHandler(e, setProduct)} 
           className='nameInput'
       >
-        <option>{!product.category ? '--Выбирите категорию--' : product.category}</option>
+        <option>{!categoryNow ? '--Выбирите категорию--' : categoryNow}</option>
         {category && category.map(cat => (
           <option value={cat._id} key={cat.title}>{cat.title}</option>
         ))}
@@ -106,7 +128,7 @@ const NewProduct = () => {
       />
 
         <>           
-          {!product.publish 
+          {!product.publish && !publish
               ? <button className='publish no' onClick={() => setPublish(true)}>ОПУБЛИКОВАТЬ</button> 
               : <button className='publish yes' onClick={() => setPublish(false)}>СНЯТЬ С ПУБЛИКАЦИИ</button>
           }
@@ -117,11 +139,11 @@ const NewProduct = () => {
         onClick={onSubmitFormData} 
         className='editbtn' 
         disabled={!product.title || !product.category}
-      >Добавить товар
+      >Изменить товар
       </button>
 
     </ProductCard>
 </>
   );
 };
-export default NewProduct;
+export default EditProduct;

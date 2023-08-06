@@ -46,7 +46,7 @@ router.get('/myproducts', auth, async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
+    const product = await Product.findById(req.params.id).populate('category');
 
     if (!product) {
       res.status(404).send({message: 'Product not found!'});
@@ -60,17 +60,17 @@ router.get('/:id', async (req, res) => {
 
 
 
-router.post('/', auth, permit('user'), upload.single('image'), async (req, res) => {
+router.post('/', auth, permit('user', 'admin'), upload.single('image'), async (req, res) => {
     const user = req.user; 
   try {
-    const {title, price, category, description} = req.body;
+    const {title, price, category, description, publish} = req.body;
     const productData = {
       title,
       price,
       category,
       description: description || null,
       image: null,
-      publish: false,
+      publish,
       user: user._id
     };
 
@@ -87,31 +87,33 @@ router.post('/', auth, permit('user'), upload.single('image'), async (req, res) 
   }
 });
 
-router.put('/:id', async (req, res) => {
-  const productData = {
-    title: req.body.title,
-    price: req.body.price,
-    description: req.body.description,
-    image: null,
-  };
-
-  if (req.file) {
-    productData.image = req.file.filename;
-  }
-
+router.put('/:id', auth, permit('user', 'admin'), upload.single('image'), async (req, res) => {
   try {
+    const {title, description, price, category, publish} = req.body;
+    
+    const productData = {
+      title,
+      price,
+      description,
+      publish,
+      category
+    };
+
+    if (req.file) {
+      productData.image = 'uploads/' + req.file.filename;
+    }
+
     const product = await Product.findById(req.params.id);
 
     if (!product) {
       res.status(404).send({message: 'Product not found!'});
     }
 
-    const updateProduct = await Product
-      .findByIdAndUpdate(req.params.id, productData, {new: true});
-
+    const updateProduct = await Product.findByIdAndUpdate(req.params.id, productData, {new: true});
+    
     res.send(updateProduct);
-  } catch {
-    res.sendStatus(500);
+  } catch (e) {
+    res.status(400).send(e);
   }
 });
 

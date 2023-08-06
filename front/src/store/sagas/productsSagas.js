@@ -63,8 +63,7 @@ export function* createProductSaga({ payload: data }) {
 }
 
 export function* updateProductSaga({ payload }) {
-    const { data, id } = payload;
-
+    const {data, id} = payload;
     try {
         yield axiosApi.put(`/products/${id}`, data);
         yield put(updateProductSuccess());

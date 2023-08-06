@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import {useState, useEffect} from "react";
 import {useDispatch} from "react-redux";
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
@@ -11,10 +11,12 @@ const UserMenu = ({user}) => {
   const [show, setShow] = useState(false);
 
 useEffect(() => {
-  setTimeout(() => {
-    setShow(false);
-  },5000)
-});
+  if (show === true) {
+    setTimeout(() => {
+      setShow(false);
+    }, 4000);
+  }
+}, [show]);
 
   return (
     <div>
@@ -27,7 +29,7 @@ useEffect(() => {
             <div className="profile">
               <div className="menu">
                 <NavLink className="links" to="/profile">Edit profile</NavLink>
-                <NavLink className="links" to="/newproduct">New product</NavLink>
+                <NavLink className="links" to="/newproduct/">New product</NavLink>
                 <NavLink className="links" to="/myproduct">My product</NavLink>
                 <NavLink className="links" onClick={() => dispatch(logoutUser())} to="/login">Logout</NavLink>
                 <span className="span"></span>
